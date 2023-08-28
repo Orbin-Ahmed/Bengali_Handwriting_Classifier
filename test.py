@@ -190,7 +190,7 @@ def preprocess_image(image_path):
     return img_array
 
 
-image_path = './Dataset/Balanced_test/3/bcc000038.bmp'
+image_path = './Dataset/Balanced_train/2/bcc000000.bmp'
 preprocessed_image = preprocess_image(image_path)
 predictions = loaded_model.predict(preprocessed_image)
 top_classes = np.argsort(predictions[0])[::-1][:5]

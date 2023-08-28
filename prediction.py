@@ -176,7 +176,7 @@ class_mapping = {
     169: 'র-ফলা'
 }
 
-model_path = './accuracy_86.h5'
+model_path = './accuracy_89.h5'
 loaded_model = load_model(model_path)
 
 

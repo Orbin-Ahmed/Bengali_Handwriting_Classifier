@@ -35,7 +35,7 @@ Classifier.add(BatchNormalization())
 Classifier.add(Dense(512, activation='relu'))
 Classifier.add(BatchNormalization())
 
-Classifier.add(Dense(units=50, activation='softmax'))
+Classifier.add(Dense(units=170, activation='softmax'))
 Classifier.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 Classifier.summary()
@@ -49,17 +49,17 @@ train_datagen = ImageDataGenerator(rescale=1./255, shear_range=0.2, rotation_ran
 validate_datagen = ImageDataGenerator(rescale=1./255)
 test_datagen = ImageDataGenerator(rescale=1./255)
 
-balanced_training_set = train_datagen.flow_from_directory('Dataset/backup_train', target_size=(28, 28),
+balanced_training_set = train_datagen.flow_from_directory('Dataset/Balanced', target_size=(28, 28),
                                                  batch_size=32, class_mode='categorical', shuffle=True)
-validate_set = validate_datagen.flow_from_directory('Dataset/backup_val', target_size=(28, 28), batch_size=30,
+validate_set = validate_datagen.flow_from_directory('Dataset/Balanced_val', target_size=(28, 28), batch_size=32,
                                                     class_mode='categorical', shuffle=True)
 
-test_set = test_datagen.flow_from_directory('Dataset/backup_test', target_size=(28, 28), batch_size=30,
+test_set = test_datagen.flow_from_directory('Dataset/Balanced_test', target_size=(28, 28), batch_size=32,
                                             class_mode='categorical', shuffle=True)
 
 # Train model
-history = Classifier.fit(balanced_training_set, steps_per_epoch=375, epochs=10, validation_data=validate_set,
-                         validation_steps=40)
+history = Classifier.fit(balanced_training_set, steps_per_epoch=1275, epochs=10, validation_data=validate_set,
+                         validation_steps=120)
 # Evaluate the model on the test set
 evaluation = Classifier.evaluate(test_set, steps=len(test_set))
 accuracy = evaluation[1] * 100

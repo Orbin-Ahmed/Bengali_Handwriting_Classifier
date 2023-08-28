@@ -1,12 +1,8 @@
-import tensorflow as tf
 from matplotlib import pyplot as plt
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import numpy as np
 
-
-model_path = './accuracy_89.h5'
-loaded_model = load_model(model_path)
 class_mapping = {
     0: 'অ',
     1: 'আ',
@@ -180,18 +176,21 @@ class_mapping = {
     169: 'র-ফলা'
 }
 
+model_path = './accuracy_86.h5'
+loaded_model = load_model(model_path)
+
+
 def preprocess_image(image_path):
-    img = image.load_img(image_path, target_size=(28, 28))
+    img = image.load_img(image_path, target_size=(28, 28, 3))
     plt.imshow(img)
     plt.title("Input Image")
     plt.show()
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
-    img_array /= 255.0
     return img_array
 
 
-image_path = './Dataset/Balanced_test/5/bcc000038.bmp'
+image_path = './Dataset/Balanced_test/3/bcc000038.bmp'
 preprocessed_image = preprocess_image(image_path)
 predictions = loaded_model.predict(preprocessed_image)
 top_classes = np.argsort(predictions[0])[::-1][:5]
